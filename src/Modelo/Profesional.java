@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clases;
+package Modelo;
 
 /**
  *
@@ -58,18 +58,4 @@ public class Profesional extends Persona {
         this.estado = estado;
     }
 
-   
-
-  public void agreagarDatos() {
-  }
-
-  public void actualizarDatos() {
-  }
-
-  public void eliminarDatos() {
-  }
-
-  public void mostrarDatos() {
-  }
-
-}
+   }

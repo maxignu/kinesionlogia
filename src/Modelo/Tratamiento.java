@@ -3,33 +3,43 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clases;
+package Modelo;
 
 /**
  *
  * @author maxi
  */
-public class FichaKinesica extends Profesional {
+public class Tratamiento extends FichaKinesica {
 
-  private int idFicha;
+  private int id;
+  private String nombreDiag;
   private String descripcion;
   private boolean estado;
 
-    public FichaKinesica() {
+    public Tratamiento() {
     }
 
-    public FichaKinesica(int idFicha, String descripcion, boolean estado) {
-        this.idFicha = idFicha;
+    public Tratamiento(int id, String nombreDiag, String descripcion, boolean estado) {
+        this.id = id;
+        this.nombreDiag = nombreDiag;
         this.descripcion = descripcion;
         this.estado = estado;
     }
 
-    public int getIdFicha() {
-        return idFicha;
+    public int getId() {
+        return id;
     }
 
-    public void setIdFicha(int idFicha) {
-        this.idFicha = idFicha;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombreDiag() {
+        return nombreDiag;
+    }
+
+    public void setNombreDiag(String nombreDiag) {
+        this.nombreDiag = nombreDiag;
     }
 
     public String getDescripcion() {
@@ -47,17 +57,5 @@ public class FichaKinesica extends Profesional {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
-  public void agregarDatos() {
-  }
-
-  public void actualizarDatos() {
-  }
-
-  public void mostrarDatos() {
-  }
-
-  public void eliminarDatos() {
-  }
 
 }
