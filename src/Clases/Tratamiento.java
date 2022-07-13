@@ -58,17 +58,4 @@ public class Tratamiento extends FichaKinesica {
         this.estado = estado;
     }
 
-    
-  
-  public void agregar() {
-  }
-
-  public void actualizar() {
-  }
-
-  public void mostrar() {
-  }
-
-  public void eliminar() {
-  }
 }

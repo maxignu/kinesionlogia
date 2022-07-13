@@ -8,9 +8,11 @@ package Controlador;
  *
  * @author bangho
  */
-public class turnoControlador {
+public class tratamientoControlador {
     
-     public void agregar() {
+        
+  
+  public void agregar() {
   }
 
   public void actualizar() {
@@ -21,4 +23,5 @@ public class turnoControlador {
 
   public void eliminar() {
   }
+    
 }

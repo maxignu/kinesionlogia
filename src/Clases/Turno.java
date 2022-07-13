@@ -65,19 +65,5 @@ public class Turno {
     public void setNrosesion(int nrosesion) {
         this.nrosesion = nrosesion;
     }
-
-   
  
-  public void agregar() {
-  }
-
-  public void actualizar() {
-  }
-
-  public void mostrar() {
-  }
-
-  public void eliminar() {
-  }
-
 }
