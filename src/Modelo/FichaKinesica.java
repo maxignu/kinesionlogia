@@ -48,16 +48,6 @@ public class FichaKinesica extends Profesional {
         this.estado = estado;
     }
 
-  public void agregarDatos() {
-  }
-
-  public void actualizarDatos() {
-  }
-
-  public void mostrarDatos() {
-  }
-
-  public void eliminarDatos() {
-  }
+  
 
 }
