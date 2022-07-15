@@ -79,16 +79,6 @@ public class ObraSocial {
     }
 
     
-  public void agregar() {
-  }
-
-  public void actualizar() {
-  }
-
-  public void mostrar() {
-  }
-
-  public void eliminar() {
-  }
+ 
 
 }

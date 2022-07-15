@@ -105,16 +105,6 @@ public class Persona {
 
    
 
-  public void cargarDatos() {
-  }
-
-  public void actualizarDatos() {
-  }
-
-  public void eliminarDatos() {
-  }
-
-  public void mostrarDatos() {
-  }
+ 
 
 }

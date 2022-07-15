@@ -51,16 +51,6 @@ public class Informe {
     }
 
 
-  public void agregar() {
-  }
-
-  public void actualizar() {
-  }
-
-  public void mostrar() {
-  }
-
-  public void eliminar() {
-  }
+  
 
 }
