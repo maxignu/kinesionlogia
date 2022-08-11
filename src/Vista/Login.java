@@ -4,6 +4,18 @@
  */
 package Vista;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 /**
  *
@@ -16,6 +28,21 @@ private Bienvenido b;
      */
     public Login() {
         initComponents();
+        Connect();
+    }
+    Connection con;
+    PreparedStatement pst;
+
+    public void Connect()
+    {
+        try {
+            Class.forName("org.postgresql.Driver");
+            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Kinesiologia","postgres","admin");
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -33,6 +60,10 @@ private Bienvenido b;
         jTuser = new javax.swing.JTextField();
         jPFpass = new javax.swing.JPasswordField();
         jBAcceso = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jCbEstado = new javax.swing.JComboBox<>();
+        jTfechaAlta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,30 +84,41 @@ private Bienvenido b;
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Nakula", 1, 18)); // NOI18N
+        jLabel3.setText("Fecha Alta:");
+
+        jLabel4.setFont(new java.awt.Font("Nakula", 1, 18)); // NOI18N
+        jLabel4.setText("Estado:");
+
+        jCbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTuser)
-                            .addComponent(jPFpass, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jBAcceso)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTuser, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPFpass, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTfechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(74, 74, 74))
+                    .addComponent(jBAcceso))
                 .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -84,7 +126,15 @@ private Bienvenido b;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jPFpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTfechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jCbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jBAcceso)
                 .addContainerGap())
         );
@@ -100,28 +150,51 @@ private Bienvenido b;
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 111, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAccesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAccesoActionPerformed
-
+        
+         try {
         String user, pass;
+      /*
+        SimpleDateFormat Fecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaAlta=Fecha.format(new Date());
+        jTfechaAlta.setText(fechaAlta);*/
+ 
         user = jTuser.getText();
         pass = jPFpass.getText();
+        
+        
 
-        if(user.equals("") || pass.equals("")) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar todos los campos", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
-        }else if(user.equals("usuario") || pass.equals("user123")){
-            JOptionPane.showMessageDialog(this, "Acceso Concedido");
-            b = new Bienvenido();
-            this.setVisible(false);
-            b.setVisible(true);
-        }else {JOptionPane.showMessageDialog(this, "Los datos no coinciden", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
+        
+            pst = con.prepareStatement("select * from usuario where usuario = ? and clave = ? ");
+            pst.setString(1, user);
+            pst.setString(2, pass);
+           // pst.setString(3, fechaAlta);
+            
+            ResultSet rs;
+            
+            rs=pst.executeQuery();
+            
+            if(rs.next()){
+                JOptionPane.showMessageDialog(this, "Acceso Concedido");
+                b = new Bienvenido();
+                this.setVisible(false);
+                b.setVisible(true);
+            }
+            else {
+               JOptionPane.showMessageDialog(this, "Los datos no coinciden", "Mensaje de Error", JOptionPane.ERROR_MESSAGE); 
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jBAccesoActionPerformed
 
@@ -162,10 +235,14 @@ private Bienvenido b;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAcceso;
+    private javax.swing.JComboBox<String> jCbEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField jPFpass;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTfechaAlta;
     private javax.swing.JTextField jTuser;
     // End of variables declaration//GEN-END:variables
 }
