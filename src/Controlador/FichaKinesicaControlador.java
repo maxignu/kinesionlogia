@@ -8,17 +8,16 @@ package Controlador;
  *
  * @author maxi
  */
-public class personaControlador {
-    
-     public void cargarDatos() {
+public class FichaKinesicaControlador {
+     public void agregar() {
   }
 
-  public void actualizarDatos() {
+  public void actualizar() {
   }
 
-  public void eliminarDatos() {
+  public void eliminar() {
   }
 
-  public void mostrarDatos() {
+  public void mostrar() {
   }
 }

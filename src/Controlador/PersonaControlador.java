@@ -4,13 +4,20 @@
  */
 package Controlador;
 
+import Conexion.Conexion;
+import Modelo.Usuario;
+
 /**
  *
- * @author bangho
+ * @author maxi
  */
-public class profesionalControlador {
- 
-    public void agreagarDatos() {
+public class PersonaControlador {
+    
+     private static Conexion conexion;
+    
+     public void cargarDatos(Usuario usuario) {
+         
+         
   }
 
   public void actualizarDatos() {

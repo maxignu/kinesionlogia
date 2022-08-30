@@ -8,7 +8,7 @@ package Controlador;
  *
  * @author maxi
  */
-public class obraSocialControlador {
+public class DomicilioControlador {
     
      public void agregar() {
   }
@@ -16,9 +16,9 @@ public class obraSocialControlador {
   public void actualizar() {
   }
 
-  public void mostrar() {
+  public void eliminar() {
   }
 
-  public void eliminar() {
+  public void mostrar() {
   }
 }

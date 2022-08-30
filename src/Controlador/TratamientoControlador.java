@@ -6,19 +6,22 @@ package Controlador;
 
 /**
  *
- * @author maxi
+ * @author bangho
  */
-public class domicilioControlador {
+public class TratamientoControlador {
     
-     public void agregar() {
+        
+  
+  public void agregar() {
   }
 
   public void actualizar() {
   }
 
-  public void eliminar() {
-  }
-
   public void mostrar() {
   }
+
+  public void eliminar() {
+  }
+    
 }

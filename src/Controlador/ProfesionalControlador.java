@@ -8,17 +8,17 @@ package Controlador;
  *
  * @author bangho
  */
-public class turnoControlador {
-    
-     public void agregar() {
+public class ProfesionalControlador {
+ 
+    public void agreagarDatos() {
   }
 
-  public void actualizar() {
+  public void actualizarDatos() {
   }
 
-  public void mostrar() {
+  public void eliminarDatos() {
   }
 
-  public void eliminar() {
+  public void mostrarDatos() {
   }
 }

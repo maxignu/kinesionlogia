@@ -8,7 +8,7 @@ package Controlador;
  *
  * @author maxi
  */
-public class diagnosticoControlador {
+public class DiagnosticoControlador {
      public void agregar() {
   }
 
