@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class Persona {
 
-  private int id_persona;
+  private Long id_persona;
   private String nombre;
   private String apellido;
   private Integer dni;
@@ -27,7 +27,7 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(int id_persona, String nombre, String apellido, Integer dni, Date fechaNac, int telefono, String email, Domicilio domicilio) {
+    public Persona(Long id_persona, String nombre, String apellido, Integer dni, Date fechaNac, int telefono, String email, Domicilio domicilio) {
         this.id_persona = id_persona;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -38,11 +38,11 @@ public class Persona {
         this.domicilio = domicilio;
     }
 
-    public int getId_persona() {
+    public Long getId_persona() {
         return id_persona;
     }
 
-    public void setId_persona(int id_persona) {
+    public void setId_persona(Long id_persona) {
         this.id_persona = id_persona;
     }
 

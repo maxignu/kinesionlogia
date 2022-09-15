@@ -4,46 +4,33 @@
  */
 package Vista;
 
+import Controlador.UsuarioControlador;
+import Modelo.Usuario;
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 /**
  *
  * @author maxi
  */
 public class Login extends javax.swing.JFrame {
-private Bienvenido b;
+private Principal principal;
+UsuarioControlador controladorLogin= new UsuarioControlador();
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
-        Connect();
+       
     }
-    Connection con;
-    PreparedStatement pst;
+ 
 
-    public void Connect()
-    {
-        try {
-            Class.forName("org.postgresql.Driver");
-            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/kinesiologia","postgres","admin");
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }catch (SQLException ex){
-            ex.printStackTrace();
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,7 +46,9 @@ private Bienvenido b;
         jLabel2 = new javax.swing.JLabel();
         jTuser = new javax.swing.JTextField();
         jPFpass = new javax.swing.JPasswordField();
-        jBAcceso = new javax.swing.JButton();
+        jbAceptar = new javax.swing.JButton();
+        jbLimpiar1 = new javax.swing.JButton();
+        jbSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,12 +60,47 @@ private Bienvenido b;
         jLabel2.setFont(new java.awt.Font("Nakula", 1, 18)); // NOI18N
         jLabel2.setText("Contraseña:");
 
-        jBAcceso.setBackground(new java.awt.Color(102, 102, 255));
-        jBAcceso.setFont(new java.awt.Font("Nakula", 1, 18)); // NOI18N
-        jBAcceso.setText("Acceder");
-        jBAcceso.addActionListener(new java.awt.event.ActionListener() {
+        jTuser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTuserKeyTyped(evt);
+            }
+        });
+
+        jPFpass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPFpassKeyTyped(evt);
+            }
+        });
+
+        jbAceptar.setBackground(new java.awt.Color(102, 102, 255));
+        jbAceptar.setFont(new java.awt.Font("Nakula", 1, 18)); // NOI18N
+        jbAceptar.setText("Aceptar");
+        jbAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAccesoActionPerformed(evt);
+                jbAceptarActionPerformed(evt);
+            }
+        });
+        jbAceptar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jbAceptarKeyTyped(evt);
+            }
+        });
+
+        jbLimpiar1.setBackground(new java.awt.Color(102, 102, 255));
+        jbLimpiar1.setFont(new java.awt.Font("Nakula", 1, 18)); // NOI18N
+        jbLimpiar1.setText("Limpiar");
+        jbLimpiar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiar1ActionPerformed(evt);
+            }
+        });
+
+        jbSalir.setBackground(new java.awt.Color(102, 102, 255));
+        jbSalir.setFont(new java.awt.Font("Nakula", 1, 18)); // NOI18N
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
             }
         });
 
@@ -84,10 +108,10 @@ private Bienvenido b;
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(27, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
@@ -95,9 +119,14 @@ private Bienvenido b;
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTuser, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPFpass, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(74, 74, 74))
-                    .addComponent(jBAcceso))
-                .addGap(33, 33, 33))
+                        .addGap(107, 107, 107))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jbAceptar)
+                        .addGap(34, 34, 34)
+                        .addComponent(jbLimpiar1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbSalir)
+                        .addGap(17, 17, 17))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,9 +139,12 @@ private Bienvenido b;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jPFpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-                .addComponent(jBAcceso)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbLimpiar1)
+                    .addComponent(jbSalir)
+                    .addComponent(jbAceptar))
+                .addGap(42, 42, 42))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -135,45 +167,118 @@ private Bienvenido b;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBAccesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAccesoActionPerformed
+    private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
+        // Boton aceptar
         
-         try {
-        String user, pass;
-      /*
-        SimpleDateFormat Fecha = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaAlta=Fecha.format(new Date());
-        jTfechaAlta.setText(fechaAlta);*/
- 
-        user = jTuser.getText();
-        pass = jPFpass.getText();
-        
-        
+        validar();
+    }//GEN-LAST:event_jbAceptarActionPerformed
 
-        
-            pst = con.prepareStatement("select * from usuario where usuario = ? and clave = ? ");
-            pst.setString(1, user);
-            pst.setString(2, pass);
-           // pst.setString(3, fechaAlta);
-            
-            ResultSet rs;
-            
-            rs=pst.executeQuery();
-            
-            if(rs.next()){
-                JOptionPane.showMessageDialog(this, "Acceso Concedido");
-                b = new Bienvenido();
-                this.setVisible(false);
-                b.setVisible(true);
-            }
-            else {
-               JOptionPane.showMessageDialog(this, "Los datos no coinciden", "Mensaje de Error", JOptionPane.ERROR_MESSAGE); 
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+    private void jbLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiar1ActionPerformed
+        // Boton Limpiar
+        limpiar();
+    }//GEN-LAST:event_jbLimpiar1ActionPerformed
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        // Boton salir
+        this.dispose();
+        principal.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jTuserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTuserKeyTyped
+        char tecla = evt.getKeyChar();
+        if(tecla == (char) evt.VK_ENTER){
+            validar();
         }
-    }//GEN-LAST:event_jBAccesoActionPerformed
+    }//GEN-LAST:event_jTuserKeyTyped
 
+    private void jbAceptarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbAceptarKeyTyped
+         char tecla = evt.getKeyChar();
+        if(tecla == (char) evt.VK_ENTER){
+            validar();
+    }//GEN-LAST:event_jbAceptarKeyTyped
+   }
+    private void jPFpassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPFpassKeyTyped
+         char tecla = evt.getKeyChar();
+        if(tecla == (char) evt.VK_ENTER){
+            validar();
+    }//GEN-LAST:event_jPFpassKeyTyped
+    }
+    
+    private void validar(){
+         principal.setEnabled(false);
+         if(jTuser.getText().length() > 0 && jPFpass.getPassword().length >0) {
+             SwingWorker sw;
+             sw = new SwingWorker(){
+              @Override
+              protected Object doInBackground() throws Exception {
+                  Usuario usuario = new Usuario();
+                  Usuario usuarioAux= null;
+                  usuario.setUser(jTuser.getText());
+                  char[] clave= jPFpass.getPassword();
+                  String pass= new String (clave);
+                  usuario.setPass(pass);
+                  usuarioAux = controladorLogin.validar(usuario);
+                  if(usuarioAux != null){
+                      Principal.usuario = usuarioAux;
+                      principal.setEnabled(true);
+                      dispose();
+                   
+                  }else {
+                      principal.setEnabled(true);
+                      JOptionPane.showMessageDialog(null, "Verifique usuario/contraseña", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+                      limpiar();
+                  }
+                  return null;
+                }
+                  
+              };
+             sw.execute();
+                 
+             }else {
+                JOptionPane.showMessageDialog(this, "Falta ingresar usuario/contraseña", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+                  }
+             }
+         private void limpiar(){
+             jTuser.setText("");
+             jPFpass.setText("");
+         }
+         
+         private class Validar extends SwingWorker<Boolean, JInternalFrame>{
+
+        public Validar() {
+        }
+
+        @Override
+        protected void done() {
+            super.done(); 
+            principal.setEnabled(true);
+            dispose();
+        }
+
+        @Override
+        protected Boolean doInBackground() throws Exception {
+            
+            Usuario usuario = new Usuario();
+            Usuario usuarioAux = null;
+            usuario.setUser(jTuser.getText());
+            char[] clave= jPFpass.getPassword();
+                  String pass= new String (clave);
+                  usuario.setPass(pass);
+                  usuarioAux = controladorLogin.validar(usuario);
+                  if(usuarioAux != null){
+                      Principal.usuario = usuarioAux;
+                     return true;
+                   
+                  }else {        
+                      limpiar();
+                      return false;
+                  }
+                 
+              }
+             
+            }
+         
+        
     /**
      * @param args the command line arguments
      */
@@ -210,11 +315,13 @@ private Bienvenido b;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBAcceso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField jPFpass;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTuser;
+    private javax.swing.JButton jbAceptar;
+    private javax.swing.JButton jbLimpiar1;
+    private javax.swing.JButton jbSalir;
     // End of variables declaration//GEN-END:variables
 }
